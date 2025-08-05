@@ -1,4 +1,4 @@
-package org.example.section02.varibale;
+package org.example.com.section02.varibale;
 
 public class Ex01 {
     public static void main(String[] args) {
