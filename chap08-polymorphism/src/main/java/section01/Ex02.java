@@ -24,7 +24,7 @@ public class Ex02 {
         for (Animal animal : animals) {
             if (animal instanceof Rabbit) {
                 ((Rabbit)animal).jump();
-            }else if (animal instanceof Tiger) {
+            } else if (animal instanceof Tiger) {
                 ((Tiger)animal).bite();
             }
         }
