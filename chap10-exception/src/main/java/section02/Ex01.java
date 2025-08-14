@@ -24,9 +24,12 @@ public class Ex01 {
         }
         catch (PriceNegativeException e) {
             System.out.println("가격이 음수?");
-        } catch (MoneyNegativeException e) {
-            System.out.println("돈 없냐?");
-        } catch (NotEnoughMoneyException e) {
+        }
+        // } catch (MoneyNegativeException e) {
+        //    System.out.println("돈 없냐?");
+        // }
+        /* 설명. multi-catch block */
+        catch (MoneyNegativeException | NotEnoughMoneyException e) {
             System.out.println("더 내라");
         }
         catch (Exception e){

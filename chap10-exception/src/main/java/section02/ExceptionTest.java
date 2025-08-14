@@ -5,7 +5,9 @@ import section02.exception.NotEnoughMoneyException;
 import section02.exception.PriceNegativeException;
 
 public class ExceptionTest {
-    public void checkEnoughMoney(int price, int money) throws PriceNegativeException, MoneyNegativeException, NotEnoughMoneyException{
+    public void checkEnoughMoney(int price, int money)
+            throws PriceNegativeException, MoneyNegativeException, NotEnoughMoneyException{
+            // throws Exception{    // Exception으로 throws가 가능하다.(다형성에 의해서)
         if (price < 0 ){
             throw new PriceNegativeException("상품 가격은 음수일 수 없습니디.");
         }
