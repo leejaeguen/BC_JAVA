@@ -1,6 +1,7 @@
 package section04.aggregate;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 public class Member implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -69,7 +70,9 @@ public class Member implements Serializable {
         return "Member{" +
                 "memNo=" + memNo +
                 ", id='" + id + '\'' +
+                ", pwd='" + pwd + '\'' +
                 ", age=" + age +
+                ", hobbies=" + Arrays.toString(hobbies) +
                 ", bloodType=" + bloodType +
                 ", accountStatus=" + accountStatus +
                 '}';
