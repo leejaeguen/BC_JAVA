@@ -32,7 +32,7 @@ public class MemberRepository {
 
     /* 설명. ArrayList<Member>를 받으면 파일로 컬렉션에 담긴 회원들을 출력하는 메소드(feat. 덮어씌우는 기능) */
     private void saveMembers(ArrayList<Member> members) {
-        ObjectOutputStream oos = null;
+            ObjectOutputStream oos = null;
         try {
             oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
 

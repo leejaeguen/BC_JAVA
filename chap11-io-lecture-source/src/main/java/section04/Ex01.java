@@ -41,7 +41,7 @@ public class Ex01 {
                     Member selectMember = ms.findMemberForMod(chooseMemN0()); // 기존 회원 사본 객체 반환 받기
 
                     /* 설명. 수정을 위해 입력된 내용을 바탕으로 회원 수정 */
-                    ms.modifyMember(reform(selectMember));      // 수정된 내용을 담은 기존 회원은 사본 객체 넘기기
+                    ms.modifyMember(reform(selectMember));     // 수정된 내용을 담은 기존 회원은 사본 객체 넘기기
                     break;
                 case 5:
                     /* 설명. soft delete 할 예정 */
