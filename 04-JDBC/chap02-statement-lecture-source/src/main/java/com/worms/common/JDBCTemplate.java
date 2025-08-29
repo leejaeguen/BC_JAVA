@@ -5,8 +5,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.sql.Statement;
 
 public class JDBCTemplate {
     public static Connection getConnection() {
@@ -50,4 +52,22 @@ public class JDBCTemplate {
         }
 
     }
+
+    public static void close(Statement stmt) {
+        try {
+            if (stmt != null) stmt.close();
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void close(ResultSet rset) {
+        try {
+            if (rset != null) rset.close();
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }
