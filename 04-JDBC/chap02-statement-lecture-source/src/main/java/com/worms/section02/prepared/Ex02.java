@@ -25,7 +25,7 @@ public class Ex02 {
 
         try {
             
-            /* 설명. ?(placeholder)를 사용하면 1. 가독성 증가(하나의 문자열), 2. 전처리 가능 */
+            /* 설명. ?(placeholder)를 사용하면 1. 가독성 증가(하나의 문자열), 2. 전처리 가능 3. Statement 대비 속도 향상 */
             pstmt = con.prepareStatement("select * from EMPLOYEE where EMP_ID = ? and ENT_YN = ?");
             
             /* 설명. ?인 placeholder의 위치별로 들어갈 값들은 setter을 이용해 매꿔준다. */
