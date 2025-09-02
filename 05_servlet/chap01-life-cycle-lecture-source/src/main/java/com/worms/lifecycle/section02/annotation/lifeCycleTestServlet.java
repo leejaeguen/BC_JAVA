@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 
 import java.io.IOException;
 
-@WebServlet(value = "/annotation-lifecycle")
+@WebServlet(value = "/annotation-lifecycle", loadOnStartup = 2)
 public class lifeCycleTestServlet extends HttpServlet {
 
     public lifeCycleTestServlet() {
