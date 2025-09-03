@@ -1,5 +1,4 @@
-package com.worms.response;
-
+package com.worms.redirect;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,11 +8,13 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/status")
-public class StatusCodeServlet extends HttpServlet {
+@WebServlet("/othersite")
+public class otherCiteRedirectServlet extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        resp.sendError(404, "없음, 확인") ;
-        resp.sendError(500, "니 잘못");
+        System.out.println("get 요청을 받으면 naver 사이트로 redirect");
+
+        resp.sendRedirect("https://www.naver.com");
     }
 }
