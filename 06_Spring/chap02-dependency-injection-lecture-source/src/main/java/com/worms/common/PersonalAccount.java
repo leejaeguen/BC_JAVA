@@ -1,11 +1,11 @@
 package com.worms.common;
 
 public class PersonalAccount implements Account {
-    private final String BANK_CODE;        // 은행 코드
+    private final int BANK_CODE;        // 은행 코드
     private final String ACCOUNT_NO;    // 계좌 번호
     private int balance;                // 잔액
 
-    public PersonalAccount(String BANK_CODE, String ACCOUNT_NO) {
+    public PersonalAccount(int BANK_CODE, String ACCOUNT_NO) {
         this.BANK_CODE = BANK_CODE;
         this.ACCOUNT_NO = ACCOUNT_NO;
     }
