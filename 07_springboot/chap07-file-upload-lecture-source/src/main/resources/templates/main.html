@@ -17,5 +17,10 @@
     </form>
 
     <h3>multi file upload</h3>
+    <form action="multi-file" method="post" enctype="multipart/form-data">
+        파일: <input type="file" name="multiFiles" multiple>
+        파일 설명: <input type="text" name="multiFileDescription">
+        <input type="submit" value="업로드">
+    </form>
 </body>
 </html>
