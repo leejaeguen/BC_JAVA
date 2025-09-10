@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +23,8 @@ public class FileUploadController {
 
     @PostMapping("single-file")
     public String singleFile(@RequestParam MultipartFile singleFile,
-                             @RequestParam String singleFileDescription) {
+                             @RequestParam String singleFileDescription,
+                             RedirectAttributes rttr) {
 
         /* 설명. 1. 저장할 파일의 경로설정 후 파일 저장 */
         /* 설명. 2. 업로드되는 파일의 이름을 리네임(feat. 날짜/시간, Random, UUID) */
@@ -49,6 +51,12 @@ public class FileUploadController {
             file.put("saveName", saveName);
             file.put("filePath", "/img/single/");
             file.put("singleFileDescription", singleFileDescription);
+            
+            /* 설명. 이후 service 계층을 통해 DB에 사용자가 업로드한 하나의 파일에 대한 내용을 지정하고 옴 */
+            rttr.addFlashAttribute("message", originFileName + "파일 업로드 완료");
+            rttr.addFlashAttribute("img", "/img/single/" + saveName);
+            rttr.addFlashAttribute("singleFileDescription", singleFileDescription);
+
 
         } catch (IOException e) {
             throw new RuntimeException(e);
