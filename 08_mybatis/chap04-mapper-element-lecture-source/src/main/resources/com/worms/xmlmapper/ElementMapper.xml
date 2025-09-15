@@ -71,19 +71,34 @@
     </select>
 
     <!-- 3. Association 관계에서 resultMap 2개 활용 -->
+<!--    <resultMap id="categoryAndMenuResultMap"-->
+<!--               type="com.worms.xmlmapper.CategoryAndMenuDTO">-->
+<!--        <id property="categoryCode" column="CATEGORY_CODE"/>-->
+<!--        <result property="categoryName" column="CATEGORY_NAME"/>-->
+<!--        <result property="refCategoryCode" column="REF_CATEGORY_CODE"/>-->
+<!--        <collection property="menus" resultMap="menuResultMap"/>-->
+<!--    </resultMap>-->
+<!--    <resultMap id="menuResultMap3" type="com.worms.xmlmapper.MenuDTO">-->
+<!--        <id property="menuCode" column="MENU_CODE"/>-->
+<!--        <result property="menuName" column="MENU_NAME"/>-->
+<!--        <result property="menuPrice" column="MENU_PRICE"/>-->
+<!--        <result property="categoryCode" column="CATEGORY_CODE"/>-->
+<!--        <result property="orderableStatus" column="ORDERABLE_STATUS"/>-->
+<!--    </resultMap>-->
+
+    <!-- 4. Collection 관계에서 resultMap 1개 활용-->
     <resultMap id="categoryAndMenuResultMap"
                type="com.worms.xmlmapper.CategoryAndMenuDTO">
         <id property="categoryCode" column="CATEGORY_CODE"/>
         <result property="categoryName" column="CATEGORY_NAME"/>
         <result property="refCategoryCode" column="REF_CATEGORY_CODE"/>
-        <collection property="menus" resultMap="menuResultMap"/>
-    </resultMap>
-    <resultMap id="menuResultMap3" type="com.worms.xmlmapper.MenuDTO">
-        <id property="menuCode" column="MENU_CODE"/>
-        <result property="menuName" column="MENU_NAME"/>
-        <result property="menuPrice" column="MENU_PRICE"/>
-        <result property="categoryCode" column="CATEGORY_CODE"/>
-        <result property="orderableStatus" column="ORDERABLE_STATUS"/>
+        <collection property="menus" resultMap="menuResultMap">
+            <id property="menuCode" column="MENU_CODE"/>
+            <result property="menuName" column="MENU_NAME"/>
+            <result property="menuPrice" column="MENU_PRICE"/>
+            <result property="categoryCode" column="CATEGORY_CODE"/>
+            <result property="orderableStatus" column="ORDERABLE_STATUS"/>
+        </collection>
     </resultMap>
     <select id="selectResultMapCollectionTest" resultMap="categoryAndMenuResultMap">
         SELECT
