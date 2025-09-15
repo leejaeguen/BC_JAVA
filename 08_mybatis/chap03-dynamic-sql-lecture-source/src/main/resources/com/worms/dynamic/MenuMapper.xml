@@ -138,24 +138,25 @@
         FROM TBL_MENU A
         <!--        <where>-->
         <!--            <if test="name != null">-->
-        <!--                A.MENU_NAME LIKE CONCAT('%', #{name}, '%')-->
+        <!--        A.MENU_NAME LIKE CONCAT('%', #{name}, '%')-->
         <!--            </if>-->
         <!--            <if test="categoryCode != null">-->
-        <!--                AND A.CATEGORY_CODE = #{categoryCode}-->
+        <!--        AND A.CATEGORY_CODE = #{categoryCode}-->
         <!--            </if>-->
         <!--        </where>-->
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             <if test="name != null">
-                A.MENU_NAME LIKE CONCAT('%', #{nmae}, '%')
+                A.MENU_NAME LIKE CONCAT('%', #{name}, '%')
             </if>
-            <if test = "categoryCode != null">
+            <if test="categoryCode != null">
                 AND A.CATEGORY_CODE = #{categoryCode}
             </if>
         </trim>
     </select>
+
     <update id="updateMenu" parameterType="hashmap">
         UPDATE
-                TBL_MENU
+        TBL_MENU
         <!--        <set>-->
         <!--            <if test="menuName != null and menuName != ''">-->
         <!--                MENU_NAME = #{menuName}-->
@@ -172,6 +173,7 @@
                 , ORDERABLE_STATUS = #{orderableStatus}
             </if>
         </trim>
-        WHERE MENU_CODE =#{menuCode}
+
+        WHERE MENU_CODE = #{menuCode}
     </update>
 </mapper>
