@@ -1,0 +1,34 @@
+package com.worms.section01.problem;
+
+public class Category {
+    private int categoryCode;
+    private String categoryName;
+
+    public Category(String categoryName, int categoryCode) {
+        this.categoryName = categoryName;
+        this.categoryCode = categoryCode;
+    }
+
+    public Category(){
+    }
+
+    public void setCategoryCode(int categoryCode) {
+        this.categoryCode = categoryCode;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "categoryCode=" + categoryCode +
+                ", categoryName='" + categoryName + '\'' +
+                '}';
+    }
+}
