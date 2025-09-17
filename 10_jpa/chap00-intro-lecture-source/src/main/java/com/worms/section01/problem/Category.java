@@ -4,9 +4,9 @@ public class Category {
     private int categoryCode;
     private String categoryName;
 
-    public Category(String categoryName, int categoryCode) {
-        this.categoryName = categoryName;
+    public Category(int categoryCode, String categoryName) {
         this.categoryCode = categoryCode;
+        this.categoryName = categoryName;
     }
 
     public Category(){
