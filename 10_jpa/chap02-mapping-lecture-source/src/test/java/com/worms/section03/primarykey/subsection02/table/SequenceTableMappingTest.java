@@ -1,10 +1,13 @@
-package com.worms.section03.primarykey.subsection01.identity;
+package com.worms.section03.primarykey.subsection02.table;
 
-
-import jakarta.persistence.*;
+import com.worms.section03.primarykey.subsection01.identity.Member;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 import org.junit.jupiter.api.*;
 
-public class PrimaryKeyMappingTest {
+public class SequenceTableMappingTest {
     private static EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
 
@@ -15,8 +18,6 @@ public class PrimaryKeyMappingTest {
 
     @BeforeEach
     public void initManager() {
-
-        /* 설명. EntityManager가 생성될 때마다 고유의 새로운 영속성 컨텍스트(Entity 객체를 관리하는 창고)가 생성된다. */
         entityManager = entityManagerFactory.createEntityManager();
     }
 
@@ -32,7 +33,7 @@ public class PrimaryKeyMappingTest {
 
     @Test
     public void 식별자_매핑_테스트() {
-        Member member = new Member();
+        com.worms.section03.primarykey.subsection01.identity.Member member = new com.worms.section03.primarykey.subsection01.identity.Member();
 //        member.setMemberNo(1);
         member.setMemberId("user01");
         member.setMemberPwd("pass01");
@@ -43,7 +44,7 @@ public class PrimaryKeyMappingTest {
         member.setMemberRole("ROLE_MEMBER");
         member.setStatus("Y");
 
-        Member member2 = new Member();
+        com.worms.section03.primarykey.subsection01.identity.Member member2 = new com.worms.section03.primarykey.subsection01.identity.Member();
 //        member.setMemberNo(1);
         member2.setMemberId("user02");
         member2.setMemberPwd("pass02");
@@ -57,19 +58,17 @@ public class PrimaryKeyMappingTest {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
-        /* 설명. PK전략을 GenerationType.TABLE로 가져가면 commit 시점에 insert가 무조건 발생한다 */
+        /* 설명. PK전략을 GenerationType.IDENTITY로 가져가면 persist 시점에 insert가 무조건 발생한다.(즉시 flush() 호출됨) */
         System.out.println("persist 전 member: " + member);
         entityManager.persist(member);
         entityManager.persist(member2);
         System.out.println("persist 후(flush 된 후) member: " + member);
 
         /* 설명. persist 당시에는 부여되지 않은 pk값으로 commit 이후 조회를 하면 가능할까? */
-        Member selectedMember = entityManager.find(Member.class, 1);
+        com.worms.section03.primarykey.subsection01.identity.Member selectedMember = entityManager.find(Member.class, 1);
         System.out.println("selectedMember = " + selectedMember);
 
         transaction.commit();
-
-        /* 설명. insert 전에 영속상태의 엔티티 객체에는 pk값이 없었지만 persist 이후 find 시에는 존재 */
-        /* 설명. persist 시점에 insert가 날아감 */
     }
+
 }
