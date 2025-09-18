@@ -1,0 +1,69 @@
+package com.worms.section01.simple;
+
+import jakarta.persistence.*;
+import org.junit.jupiter.api.*;
+
+import java.util.Arrays;
+import java.util.List;
+
+public class SimpleJPQLTest {
+    private static EntityManagerFactory entityManagerFactory;
+    private EntityManager entityManager;
+
+    @BeforeAll
+    public static void initFactory() {
+        entityManagerFactory = Persistence.createEntityManagerFactory("jpatest");
+    }
+
+    @BeforeEach
+    public void initManager() {
+        entityManager = entityManagerFactory.createEntityManager();
+    }
+
+    @AfterEach
+    public void closeManager() {
+        entityManager.close();
+    }
+
+    @AfterAll
+    public static void closeFactory() {
+        entityManagerFactory.close();
+    }
+
+    @Test
+    public void typedQuery를_이용한_단일행_단일열_조회_테스트() {
+        String jpql = "SELECT m.menuName FROM menu_section01 m WHERE m.menuCode = 7";
+
+        /* 설명. 조회 결과 반환되는 값을 알고 있을 때는 TypedQuery를 활용하며 단일행인지 다중행인지 구분하여 사용 */
+        TypedQuery<String> query = entityManager.createQuery(jpql, String.class);
+        String resultMenuName = query.getSingleResult();        // 결과가 단일행임을 알고 getSingleResult() 호출
+        System.out.println("resultMenuName: " + resultMenuName);
+
+        Assertions.assertEquals("민트미역국", resultMenuName);
+    }
+
+    @Test
+    public void Query를_이용한_단일행_단일열_조회_테스트() {
+//        String jpql = "SELECT m.menuName FROM menu_section01 m WHERE m.menuCode = 7";
+//
+//        Query query = entityManager.createQuery(jpql);
+//        Object resultMenuName  = query.getSingleResult();
+//        System.out.println("resultMenuName: " + resultMenuName);
+//
+//        Assertions.assertTrue(resultMenuName instanceof String);
+//        Assertions.assertEquals("민트미역국", resultMenuName);
+
+        /* 설명. 일부 속성만 추출하는 Projection의 하나의 경우만 테스트 */
+        /* 설명. 단일행 일부 다중열(Object[]일 시)(feat. 전체 속성(컬럼) 또는 단일 속성(컬림)이 아닌 경우 */
+        String jpql = "SELECT m.menuName, m.menuPrice FROM menu_section01 m WHERE m.menuCode = 7";
+        Query query = entityManager.createQuery(jpql);
+        List<Object[]> resultColums = query.getResultList();
+
+        Object[] resultRow = resultColums.get(0);
+        Arrays.stream(resultRow).forEach(System.out::println);
+
+        Assertions.assertTrue(resultRow[0] instanceof String);
+        Assertions.assertTrue(resultRow[1] instanceof Integer);
+
+    }
+}
