@@ -66,4 +66,46 @@ public class SimpleJPQLTest {
         Assertions.assertTrue(resultRow[1] instanceof Integer);
 
     }
+    @Test
+    public void TypedQuery를_이용한_다중행_다중열_조회_테스트() {
+        String jpql = "SELECT m FROM menu_section01 m";
+        TypedQuery<Menu>  query = entityManager.createQuery(jpql, Menu.class);
+
+        List<Menu> foundMenuList = query.getResultList();
+        foundMenuList.forEach(System.out::println);
+
+        Assertions.assertTrue(!foundMenuList.isEmpty());
+    }
+
+    @Test
+    public void distinct를_활용한_중복제거_여러_행_조회_테스트() {
+        String jpql = "SELECT distinct m.categoryCode FROM menu_section01 m";
+        TypedQuery<Integer>  query = entityManager.createQuery(jpql, Integer.class);
+
+        List<Integer> foundMenuList = query.getResultList();
+        foundMenuList.forEach(System.out::println);
+
+        Assertions.assertTrue(!foundMenuList.isEmpty());
+    }
+
+    @Test
+    public void in_연산자를_활용한_조회_테스트() {
+        String jpql = "SELECT m FROM menu_section01 m WHERE m.categoryCode IN (6, 10)";
+        List<Menu> foundMenuList = entityManager.createQuery(jpql, Menu.class).getResultList();
+        foundMenuList.forEach(System.out::println);
+
+        Assertions.assertTrue(!foundMenuList.isEmpty());
+    }
+
+    @Test
+    public void line_연산자를_활용한_조회_테스트() {
+        String jpql = "SELECT m FROM menu_section01 m WHERE m.menuName LIKE '%마늘%'";
+        List<Menu> foundMenuList = entityManager.createQuery(jpql, Menu.class).getResultList();
+        foundMenuList.forEach(System.out::println);
+
+        Assertions.assertTrue(!foundMenuList.isEmpty());
+
+    }
+    
+    /* 설명. JPQL은 기본적으로 SQL문과 크게 다르지 않지만 set operator나 아니면 subquery 활용 등에서 차이가 나는 부분이 있다. */
 }
