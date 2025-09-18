@@ -9,7 +9,10 @@
 <!--        <class>com.worms.section02.column.Member</class>-->
 <!--        <class>com.worms.section03.primarykey.subsection01.identity.Member</class>-->
 <!--        <class>com.worms.section03.primarykey.subsection02.table.Member</class>-->
-        <class>com.worms.section04.enumtype.Member</class>
+<!--        <class>com.worms.section04.enumtype.Member</class>-->
+<!--        <class>com.worms.section05.compositekey.subsection01.embedded.Member</class>-->
+        <class>com.worms.section05.compositekey.subsection02.idclass.Member</class>
+
 
 
         <properties>
