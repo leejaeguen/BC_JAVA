@@ -16,7 +16,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,7 +44,33 @@ public class MenuService {
         Menu menu = menuRepository.findById(menuCode)
                 .orElseThrow(IllegalArgumentException::new);
         log.debug("service계층에서 하나의 메뉴 상세보기: {}", menu);
-        return modelMapper.map(menu, MenuDTO.class);
+//        return modelMapper.map(menu, MenuDTO.class);
+        return menuToMenuDTO(menu);
+    }
+
+
+    /* 설명. ModelMapper 안쓰고 수동으로 매핑하는 법 */
+    MenuDTO menuToMenuDTO(Menu menu) {
+        MenuDTO menuDTO = new MenuDTO();
+//        menuDTO.setMenuCode(menu.getMenuCode());
+        menuDTO.setMenuName(menu.getMenuName());
+        menuDTO.setMenuPrice(menu.getMenuPrice());
+//        menuDTO.setCategoryCode(menu.getCategoryCode());
+//        menuDTO.setOrderableStatus(menu.getOrderableStatus());
+
+        return menuDTO;
+    }
+
+    /* 설명. Controller와 Service 계층 사이는 DTO가 아닌 Map으로 처리도 가능하다.(feat. 다운캐스팅 조심) */
+    Map<String, Object> menuTOMenuMap(Menu menu) {
+        Map<String, Object> menuMap = new HashMap();
+        menuMap.put("menuCode", menu.getMenuCode());
+        menuMap.put("menuName", menu.getMenuName());
+        menuMap.put("menuPrice", menu.getMenuPrice());
+        menuMap.put("categoryCode", menu.getCategoryCode());
+        menuMap.put("orderableStatus", menu.getOrderableStatus());
+
+        return menuMap;
     }
 
     /* 설명. 2. findAll() (페이징 처리 전) */
@@ -76,7 +104,7 @@ public class MenuService {
 
     }
 
-
+    /* 설명. 4. jpql 및 native query 활용 */
     public List<CategoryDTO> findAllCategory() {
         List<Category> categories = categoryRepository.findAllCategories();
         return categories.stream()
@@ -84,6 +112,7 @@ public class MenuService {
                 .collect(Collectors.toList());
     }
 
+    /* 설명. 5. insert 진행(Entity로 변환) */
     @Transactional
     public void registMenu(MenuDTO newMenu) {
         menuRepository.save(modelMapper.map(newMenu, Menu.class));
