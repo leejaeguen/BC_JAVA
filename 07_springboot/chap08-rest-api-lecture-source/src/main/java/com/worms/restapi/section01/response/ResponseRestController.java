@@ -1,5 +1,10 @@
 package com.worms.restapi.section01.response;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -28,6 +33,11 @@ public class ResponseRestController {
         return "Hello World!";
     }
 
+    @Operation(summary = "랜덤 숫자 생성", description = "1부터 10까지의 랜덤한 숫자를 반환")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "성공",
+            content = @Content(mediaType = "application/json", schema = @Schema(type="integer", example="7")))
+    })
     @GetMapping("/random")
     public int getRandomNumber() {
         return (int)(Math.random() * 10) +1;
