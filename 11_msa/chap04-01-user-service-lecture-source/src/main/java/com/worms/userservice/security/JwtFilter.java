@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -24,17 +25,21 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authorizationHeader = request.getHeader("Authorization");
-        log.info("헤더의 Authorization에 담긴 내용 확인: {}",  authorizationHeader);
+        log.info("헤더의 Authorization에 담긴 내용 확인: {}", authorizationHeader);
 
         /* 설명. 토큰을 제대로 들고 왔다면 */
-        if (authorizationHeader != null  && authorizationHeader.startsWith("Bearer ")) {
+        if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             String token = authorizationHeader.substring(7);
-            log.info("");
-            
+            log.info("순수 토큰 내용: {}", token);
+
             /* 설명. 토큰의 유효성 검사 */
-            if(jwtUtil.valicateToken(token)){
+            if(jwtUtil.validateToken(token)) {
                 Authentication authentication = jwtUtil.getAuthentication(token);
+
+                SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
+
+        filterChain.doFilter(request, response);
     }
 }

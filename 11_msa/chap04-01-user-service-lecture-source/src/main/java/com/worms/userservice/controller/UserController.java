@@ -1,9 +1,6 @@
 package com.worms.userservice.controller;
 
-import com.worms.userservice.dto.HelloDTO;
-import com.worms.userservice.dto.RequestRegistUserDTO;
-import com.worms.userservice.dto.ResponseRegistUserDTO;
-import com.worms.userservice.dto.UserDTO;
+import com.worms.userservice.dto.*;
 import com.worms.userservice.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -11,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -51,5 +45,15 @@ public class UserController {
         userService.registUser(userDTO);
         ResponseRegistUserDTO responseUser = modelMapper.map(userDTO, ResponseRegistUserDTO.class);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
+    }
+
+    @GetMapping("/users/{memNo}")
+    public ResponseEntity<ResponseFindUserDTO> getUser(@PathVariable String memNo) {
+        UserDTO userDTO = userService.getUserById(memNo);
+
+        ResponseFindUserDTO responseUser = modelMapper.map(userDTO, ResponseFindUserDTO.class);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(responseUser);
     }
 }
